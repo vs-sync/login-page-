@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <style>
+      body {
+        background: url("https://images.unsplash.com/photo-1753233379772-f236933eb90b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        transition: all 0.3s ease;
+      }
+      h1 {
+        color: rgb(190, 190, 190);
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Styles the main container of the to-do list */
+      .todo-container {
+        width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(3px) brightness(70%);
+        box-shadow: 0 0 20px black;
+        transition: transform 0.3s ease;
+      }
+      .todo-container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgb(187, 187, 187);
+        backdrop-filter: brightness(50%) blur(10px);
+      }
+
+      /* Removes default list styling for the to-do list */
+      .todo-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      /* Styles each list item in the to-do list */
+
+      #taskInput {
+        padding: 9px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 10px rgb(8, 8, 8);
+        outline: none;
+        color: aliceblue;
+      }
+      #taskInput::placeholder {
+        color: rgb(212, 212, 212);
+      }
+      #taskInput:focus {
+        border: 2px solid black;
+      }
+      button {
+        width: 90px;
+        padding: 9px;
+        border-radius: 10px;
+        background-color: rgb(38, 36, 36);
+        color: white;
+        margin-left: 10px;
+      }
+      button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: black;
+        transform: scale(1.05);
+      }
+      li {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 10px;
+        padding: 10px;
+        color: rgb(233, 230, 230);
+        box-shadow: 0 0 5px rgb(216, 213, 213);
+        animation: pluse 2.5s ease infinite;
+        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      li:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgb(220, 220, 220);
+      }
+
+      @keyframes pluse {
+        0% {
+          box-shadow: 0 0 5px rgb(158, 158, 158), 0 0 10px rgb(182, 182, 182);
+        }
+        50% {
+          box-shadow: 0 0 10px rgb(209, 209, 209), 0 0 20px rgb(216, 216, 216);
+        }
+        100% {
+          box-shadow: 0 0 5px rgb(158, 158, 158), 0 0 10px rgb(182, 182, 182);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="todo-container">
+      <h1>To-Do List</h1>
+
+      <!-- Input field to add new tasks -->
+      <input type="text" id="taskInput" placeholder="Add a new task" />
+
+      <!-- Button to add a new task to the list -->
+      <button class="add-btn" onclick="addtask()">Add Task</button>
+
+      <!-- Unordered list to display the tasks -->
+      <ul class="todo-list" id="todoList"></ul>
+    </div>
+
+    <script>
+      function addtask() {
+        const inp = document.getElementById("taskInput");
+        const val = inp.value.trim();
+        if (val !==
+         "") {
+          const ul = document.getElementById("todoList");
+          var list = document.createElement("li");
+          var span = document.createElement("span");
+          span.textContent = inp.value;
+          const edit = document.createElement("button");
+          edit.textContent = "Edit";
+          edit.addEventListener("click", () => {
+            const upt = prompt("Enter the Task", span.textContent);
+            if (upt !== null && upt.trim() !== "") {
+              span.textContent = upt;
+            }
+          });
+
+          const deleteli = document.createElement("button");
+          deleteli.textContent = "Delete";
+          deleteli.addEventListener("click", () => {
+            list.remove();
+          });
+
+          list.appendChild(span);
+          list.appendChild(edit);
+          list.appendChild(deleteli);
+
+          ul.appendChild(list);
+
+          inp.value = "";
+        } else {
+          alert("Enter the valid Task");
+        }
+      }
+    </script>
+  </body>
+</html>
